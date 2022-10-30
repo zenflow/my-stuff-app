@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "clean-db": "docker volume rm my_stuff_app_pg_data",
+    "db": "docker run --name my_stuff_app_pg -it --rm --env POSTGRES_PASSWORD=password --volume my_stuff_app_pg_data:/var/lib/postgresql/data --publish 5432:5432 postgres:14.3-alpine3.16",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -10,9 +12,14 @@
     "lint-fix": "yarn lint --fix"
   },
   "dependencies": {
+    "@next-auth/sequelize-adapter": "1.0.6",
     "next": "13.0.1-canary.1",
+    "next-auth": "4.15.0",
+    "pg": "^8.8.0",
+    "pg-hstore": "2.3.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "sequelize": "6.25.3"
   },
   "devDependencies": {
     "@types/node": "18.11.7",
