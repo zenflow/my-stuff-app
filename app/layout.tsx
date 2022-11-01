@@ -1,5 +1,5 @@
 import "./globals.css";
-import { NextAuthSessionProvider } from "../lib/next-auth-session-provider";
+import { SessionProvider } from "../lib/next-auth-app-dir/server";
 
 export default function RootLayout({
   children,
@@ -7,7 +7,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <NextAuthSessionProvider>
+    <SessionProvider>
       <html lang="en">
         <head>
           <title>My Stuff</title>
@@ -16,6 +16,6 @@ export default function RootLayout({
         </head>
         <body>{children}</body>
       </html>
-    </NextAuthSessionProvider>
+    </SessionProvider>
   );
 }

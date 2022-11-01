@@ -15,7 +15,7 @@ import { getModels } from "../../../lib/next-auth-sequelize-adapter-models";
 const sequelize = new Sequelize(process.env.DATABASE_URL!, { logging: false });
 const adapter = SequelizeAdapter(sequelize, { models: getModels(sequelize) });
 
-export default NextAuth({
+const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -27,3 +27,8 @@ export default NextAuth({
     strategy: "jwt",
   },
 });
+
+export default (req: any, res: any): any => {
+  console.log("got auth request");
+  return handler(req, res);
+};

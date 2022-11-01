@@ -4,7 +4,7 @@
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
-export const ClientNextAuthSessionProvider: React.FC<{
+export const ClientSessionProvider: React.FC<{
   session: Session | null;
   children: React.ReactNode;
 }> = ({ session, children }) => {
