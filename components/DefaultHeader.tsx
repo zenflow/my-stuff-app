@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 
-export const Header: React.FC = () => {
+export const DefaultHeader: React.FC = () => {
   const { data: session } = useSession();
   const firstName = session?.user?.name?.split(" ")[0];
   return (

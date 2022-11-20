@@ -1,4 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
+import type { MyPage } from "./_app";
 
 const HOME_PAGE_QUERY = gql`
   query {
@@ -12,7 +13,7 @@ const HOME_PAGE_QUERY = gql`
   }
 `;
 
-const HomePage: React.FC = () => {
+const HomePage: MyPage = () => {
   const { error, data } = useQuery(HOME_PAGE_QUERY);
   if (error) throw error;
   return (
