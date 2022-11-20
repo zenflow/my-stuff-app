@@ -7,12 +7,16 @@ const HOME_PAGE_QUERY = gql`
       name
       email
       role
+      createdAt
+      updatedAt
     }
     users {
       nodes {
         name
         email
         role
+        createdAt
+        updatedAt
       }
     }
   }
