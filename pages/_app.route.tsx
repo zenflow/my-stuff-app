@@ -4,8 +4,9 @@ import type { NextPage } from "next";
 import type { AppType } from "next/app";
 import { createWithApollo } from "next-ssr-with-apollo";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { DefaultLayout } from "../components/DefaultLayout";
 import { createWithSession } from "../modules/next-ssr-with-next-auth";
+import { DefaultLayout } from "../components/DefaultLayout";
+import { BrandImageResourceLinks } from "../components/BrandImageResourceLinks";
 
 export type MyPage<P = {}, IP = P> = NextPage<P, IP> & MyPageSettings;
 export type MyPageSettings = {
@@ -16,7 +17,12 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const component = <Component {...pageProps} />;
   let { Layout = DefaultLayout } = Component as MyPage;
   if (Layout === false) Layout = Fragment;
-  return <Layout>{component}</Layout>;
+  return (
+    <Layout>
+      <BrandImageResourceLinks />
+      {component}
+    </Layout>
+  );
 };
 
 export const withSession = createWithSession({

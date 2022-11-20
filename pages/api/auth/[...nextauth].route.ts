@@ -40,6 +40,9 @@ export default NextAuth({
   session: {
     strategy: "jwt",
   },
+  theme: {
+    logo: "/images/android-chrome-192x192.png",
+  },
   callbacks: {
     // generating jwt token
     async jwt({ token, user }) {
