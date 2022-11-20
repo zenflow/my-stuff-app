@@ -10,6 +10,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "docker-build": "docker build --tag my_stuff_app .",
+    "docker-start": "docker run --name my_stuff_app_1 -it --rm --publish 3000:3000 --env-file ./.env --env DATABASE_URL=postgres://postgres:password@host.docker.internal:5432/postgres my_stuff_app",
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "lint-fix": "yarn lint --fix"
   },
