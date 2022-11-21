@@ -26,7 +26,10 @@
     "postgraphile": "4.12.11",
     "postgraphile-plugin-connection-filter": "2.3.0",
     "postgrator": "7.1.1",
+    "ra-data-graphql": "4.4.3",
+    "ra-postgraphile": "6.1.0",
     "react": "18.2.0",
+    "react-admin": "4.5.2",
     "react-dom": "18.2.0",
     "sequelize": "6.25.7"
   },

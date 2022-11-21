@@ -6,7 +6,8 @@ export const DefaultHeader: React.FC = () => {
   const firstName = session?.user?.name?.split(" ")[0];
   return (
     <nav>
-      <Link href="/">Home</Link> <Link href="/about">About</Link>
+      <Link href="/">Home</Link> <Link href="/about">About</Link>{" "}
+      <a href={"/admin"}>Admin</a>
       {" • "}
       {firstName && `Welcome ${firstName}! `}
       <button onClick={() => (session ? signOut() : signIn())}>
