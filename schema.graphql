@@ -17,108 +17,6 @@ type Query implements Node {
     nodeId: ID!
   ): Node
 
-  """Reads and enables pagination through a set of `Account`."""
-  accounts(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Account`."""
-    orderBy: [AccountsOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: AccountCondition
-
-    """
-    A filter to be used in determining which values should be returned by the collection.
-    """
-    filter: AccountFilter
-  ): AccountsConnection
-
-  """Reads and enables pagination through a set of `Schemaversion`."""
-  schemaversions(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Schemaversion`."""
-    orderBy: [SchemaversionsOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: SchemaversionCondition
-
-    """
-    A filter to be used in determining which values should be returned by the collection.
-    """
-    filter: SchemaversionFilter
-  ): SchemaversionsConnection
-
-  """Reads and enables pagination through a set of `Session`."""
-  sessions(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Session`."""
-    orderBy: [SessionsOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: SessionCondition
-
-    """
-    A filter to be used in determining which values should be returned by the collection.
-    """
-    filter: SessionFilter
-  ): SessionsConnection
-
   """Reads and enables pagination through a set of `User`."""
   users(
     """Only read the first `n` values of the set."""
@@ -152,82 +50,15 @@ type Query implements Node {
     """
     filter: UserFilter
   ): UsersConnection
-
-  """Reads and enables pagination through a set of `VerificationToken`."""
-  verificationTokens(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `VerificationToken`."""
-    orderBy: [VerificationTokensOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: VerificationTokenCondition
-
-    """
-    A filter to be used in determining which values should be returned by the collection.
-    """
-    filter: VerificationTokenFilter
-  ): VerificationTokensConnection
-  account(id: UUID!): Account
-  schemaversion(version: BigInt!): Schemaversion
-  session(id: UUID!): Session
-  sessionBySessionToken(sessionToken: String!): Session
   user(id: UUID!): User
   userByEmail(email: String!): User
-  verificationToken(id: Int!): VerificationToken
-  verificationTokenByToken(token: String!): VerificationToken
-
-  """Reads a single `Account` using its globally unique `ID`."""
-  accountByNodeId(
-    """The globally unique `ID` to be used in selecting a single `Account`."""
-    nodeId: ID!
-  ): Account
-
-  """Reads a single `Schemaversion` using its globally unique `ID`."""
-  schemaversionByNodeId(
-    """
-    The globally unique `ID` to be used in selecting a single `Schemaversion`.
-    """
-    nodeId: ID!
-  ): Schemaversion
-
-  """Reads a single `Session` using its globally unique `ID`."""
-  sessionByNodeId(
-    """The globally unique `ID` to be used in selecting a single `Session`."""
-    nodeId: ID!
-  ): Session
+  currentUser: User
 
   """Reads a single `User` using its globally unique `ID`."""
   userByNodeId(
     """The globally unique `ID` to be used in selecting a single `User`."""
     nodeId: ID!
   ): User
-
-  """Reads a single `VerificationToken` using its globally unique `ID`."""
-  verificationTokenByNodeId(
-    """
-    The globally unique `ID` to be used in selecting a single `VerificationToken`.
-    """
-    nodeId: ID!
-  ): VerificationToken
 }
 
 """An object with a globally unique `ID`."""
@@ -238,57 +69,22 @@ interface Node {
   nodeId: ID!
 }
 
-"""A connection to a list of `Account` values."""
-type AccountsConnection {
-  """A list of `Account` objects."""
-  nodes: [Account!]!
+"""A connection to a list of `User` values."""
+type UsersConnection {
+  """A list of `User` objects."""
+  nodes: [User!]!
 
   """
-  A list of edges which contains the `Account` and cursor to aid in pagination.
+  A list of edges which contains the `User` and cursor to aid in pagination.
   """
-  edges: [AccountsEdge!]!
+  edges: [UsersEdge!]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
-  """The count of *all* `Account` you could get from the connection."""
+  """The count of *all* `User` you could get from the connection."""
   totalCount: Int!
 }
-
-type Account implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  id: UUID!
-  type: String
-  provider: String
-  providerAccountId: String
-  refreshToken: String
-  accessToken: String
-  expiresAt: Int
-  tokenType: String
-  scope: String
-  idToken: String
-  sessionState: String
-  userId: UUID
-  createdAt: Datetime!
-  updatedAt: Datetime!
-
-  """Reads a single `User` that is related to this `Account`."""
-  user: User
-}
-
-"""
-A universally unique identifier as defined by [RFC 4122](https://tools.ietf.org/html/rfc4122).
-"""
-scalar UUID
-
-"""
-A point in time as described by the [ISO
-8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
-"""
-scalar Datetime
 
 type User implements Node {
   """
@@ -302,200 +98,122 @@ type User implements Node {
   image: String!
   createdAt: Datetime!
   updatedAt: Datetime!
+  role: UserRoles!
+}
 
-  """Reads and enables pagination through a set of `Account`."""
-  accounts(
-    """Only read the first `n` values of the set."""
-    first: Int
+"""
+A universally unique identifier as defined by [RFC 4122](https://tools.ietf.org/html/rfc4122).
+"""
+scalar UUID
 
-    """Only read the last `n` values of the set."""
-    last: Int
+"""
+A point in time as described by the [ISO
+8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+"""
+scalar Datetime
 
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
+enum UserRoles {
+  USER
+  ADMIN
+}
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+"""A `User` edge in the connection."""
+type UsersEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
 
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Account`."""
-    orderBy: [AccountsOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: AccountCondition
-
-    """
-    A filter to be used in determining which values should be returned by the collection.
-    """
-    filter: AccountFilter
-  ): AccountsConnection!
-
-  """Reads and enables pagination through a set of `Session`."""
-  sessions(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Session`."""
-    orderBy: [SessionsOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: SessionCondition
-
-    """
-    A filter to be used in determining which values should be returned by the collection.
-    """
-    filter: SessionFilter
-  ): SessionsConnection!
+  """The `User` at the end of the edge."""
+  node: User!
 }
 
 """A location in a connection that can be used for resuming pagination."""
 scalar Cursor
 
-"""Methods to use when ordering `Account`."""
-enum AccountsOrderBy {
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: Cursor
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: Cursor
+}
+
+"""Methods to use when ordering `User`."""
+enum UsersOrderBy {
   NATURAL
   ID_ASC
   ID_DESC
-  TYPE_ASC
-  TYPE_DESC
-  PROVIDER_ASC
-  PROVIDER_DESC
-  PROVIDER_ACCOUNT_ID_ASC
-  PROVIDER_ACCOUNT_ID_DESC
-  REFRESH_TOKEN_ASC
-  REFRESH_TOKEN_DESC
-  ACCESS_TOKEN_ASC
-  ACCESS_TOKEN_DESC
-  EXPIRES_AT_ASC
-  EXPIRES_AT_DESC
-  TOKEN_TYPE_ASC
-  TOKEN_TYPE_DESC
-  SCOPE_ASC
-  SCOPE_DESC
-  ID_TOKEN_ASC
-  ID_TOKEN_DESC
-  SESSION_STATE_ASC
-  SESSION_STATE_DESC
-  USER_ID_ASC
-  USER_ID_DESC
+  NAME_ASC
+  NAME_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  EMAIL_VERIFIED_ASC
+  EMAIL_VERIFIED_DESC
+  IMAGE_ASC
+  IMAGE_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
+  ROLE_ASC
+  ROLE_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
 
 """
-A condition to be used against `Account` object types. All fields are tested for equality and combined with a logical ‘and.’
+A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
-input AccountCondition {
+input UserCondition {
   """Checks for equality with the object’s `id` field."""
   id: UUID
 
-  """Checks for equality with the object’s `type` field."""
-  type: String
+  """Checks for equality with the object’s `name` field."""
+  name: String
 
-  """Checks for equality with the object’s `provider` field."""
-  provider: String
+  """Checks for equality with the object’s `email` field."""
+  email: String
 
-  """Checks for equality with the object’s `providerAccountId` field."""
-  providerAccountId: String
+  """Checks for equality with the object’s `emailVerified` field."""
+  emailVerified: Datetime
 
-  """Checks for equality with the object’s `refreshToken` field."""
-  refreshToken: String
-
-  """Checks for equality with the object’s `accessToken` field."""
-  accessToken: String
-
-  """Checks for equality with the object’s `expiresAt` field."""
-  expiresAt: Int
-
-  """Checks for equality with the object’s `tokenType` field."""
-  tokenType: String
-
-  """Checks for equality with the object’s `scope` field."""
-  scope: String
-
-  """Checks for equality with the object’s `idToken` field."""
-  idToken: String
-
-  """Checks for equality with the object’s `sessionState` field."""
-  sessionState: String
-
-  """Checks for equality with the object’s `userId` field."""
-  userId: UUID
+  """Checks for equality with the object’s `image` field."""
+  image: String
 
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: Datetime
 
   """Checks for equality with the object’s `updatedAt` field."""
   updatedAt: Datetime
+
+  """Checks for equality with the object’s `role` field."""
+  role: UserRoles
 }
 
 """
-A filter to be used against `Account` object types. All fields are combined with a logical ‘and.’
+A filter to be used against `User` object types. All fields are combined with a logical ‘and.’
 """
-input AccountFilter {
+input UserFilter {
   """Filter by the object’s `id` field."""
   id: UUIDFilter
 
-  """Filter by the object’s `type` field."""
-  type: StringFilter
+  """Filter by the object’s `name` field."""
+  name: StringFilter
 
-  """Filter by the object’s `provider` field."""
-  provider: StringFilter
+  """Filter by the object’s `email` field."""
+  email: StringFilter
 
-  """Filter by the object’s `providerAccountId` field."""
-  providerAccountId: StringFilter
+  """Filter by the object’s `emailVerified` field."""
+  emailVerified: DatetimeFilter
 
-  """Filter by the object’s `refreshToken` field."""
-  refreshToken: StringFilter
-
-  """Filter by the object’s `accessToken` field."""
-  accessToken: StringFilter
-
-  """Filter by the object’s `expiresAt` field."""
-  expiresAt: IntFilter
-
-  """Filter by the object’s `tokenType` field."""
-  tokenType: StringFilter
-
-  """Filter by the object’s `scope` field."""
-  scope: StringFilter
-
-  """Filter by the object’s `idToken` field."""
-  idToken: StringFilter
-
-  """Filter by the object’s `sessionState` field."""
-  sessionState: StringFilter
-
-  """Filter by the object’s `userId` field."""
-  userId: UUIDFilter
+  """Filter by the object’s `image` field."""
+  image: StringFilter
 
   """Filter by the object’s `createdAt` field."""
   createdAt: DatetimeFilter
@@ -503,14 +221,17 @@ input AccountFilter {
   """Filter by the object’s `updatedAt` field."""
   updatedAt: DatetimeFilter
 
+  """Filter by the object’s `role` field."""
+  role: UserRolesFilter
+
   """Checks for all expressions in this list."""
-  and: [AccountFilter!]
+  and: [UserFilter!]
 
   """Checks for any expressions in this list."""
-  or: [AccountFilter!]
+  or: [UserFilter!]
 
   """Negates the expression."""
-  not: AccountFilter
+  not: UserFilter
 }
 
 """
@@ -688,48 +409,6 @@ input StringFilter {
 }
 
 """
-A filter to be used against Int fields. All fields are combined with a logical ‘and.’
-"""
-input IntFilter {
-  """
-  Is null (if `true` is specified) or is not null (if `false` is specified).
-  """
-  isNull: Boolean
-
-  """Equal to the specified value."""
-  equalTo: Int
-
-  """Not equal to the specified value."""
-  notEqualTo: Int
-
-  """
-  Not equal to the specified value, treating null like an ordinary value.
-  """
-  distinctFrom: Int
-
-  """Equal to the specified value, treating null like an ordinary value."""
-  notDistinctFrom: Int
-
-  """Included in the specified list."""
-  in: [Int!]
-
-  """Not included in the specified list."""
-  notIn: [Int!]
-
-  """Less than the specified value."""
-  lessThan: Int
-
-  """Less than or equal to the specified value."""
-  lessThanOrEqualTo: Int
-
-  """Greater than the specified value."""
-  greaterThan: Int
-
-  """Greater than or equal to the specified value."""
-  greaterThanOrEqualTo: Int
-}
-
-"""
 A filter to be used against Datetime fields. All fields are combined with a logical ‘and.’
 """
 input DatetimeFilter {
@@ -771,617 +450,52 @@ input DatetimeFilter {
   greaterThanOrEqualTo: Datetime
 }
 
-"""A connection to a list of `Session` values."""
-type SessionsConnection {
-  """A list of `Session` objects."""
-  nodes: [Session!]!
-
-  """
-  A list of edges which contains the `Session` and cursor to aid in pagination.
-  """
-  edges: [SessionsEdge!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `Session` you could get from the connection."""
-  totalCount: Int!
-}
-
-type Session implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  id: UUID!
-  expires: Datetime!
-  sessionToken: String
-  userId: UUID
-  createdAt: Datetime!
-  updatedAt: Datetime!
-
-  """Reads a single `User` that is related to this `Session`."""
-  user: User
-}
-
-"""A `Session` edge in the connection."""
-type SessionsEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `Session` at the end of the edge."""
-  node: Session!
-}
-
-"""Information about pagination in a connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
-  startCursor: Cursor
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: Cursor
-}
-
-"""Methods to use when ordering `Session`."""
-enum SessionsOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  EXPIRES_ASC
-  EXPIRES_DESC
-  SESSION_TOKEN_ASC
-  SESSION_TOKEN_DESC
-  USER_ID_ASC
-  USER_ID_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
 """
-A condition to be used against `Session` object types. All fields are tested for equality and combined with a logical ‘and.’
+A filter to be used against UserRoles fields. All fields are combined with a logical ‘and.’
 """
-input SessionCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: UUID
-
-  """Checks for equality with the object’s `expires` field."""
-  expires: Datetime
-
-  """Checks for equality with the object’s `sessionToken` field."""
-  sessionToken: String
-
-  """Checks for equality with the object’s `userId` field."""
-  userId: UUID
-
-  """Checks for equality with the object’s `createdAt` field."""
-  createdAt: Datetime
-
-  """Checks for equality with the object’s `updatedAt` field."""
-  updatedAt: Datetime
-}
-
-"""
-A filter to be used against `Session` object types. All fields are combined with a logical ‘and.’
-"""
-input SessionFilter {
-  """Filter by the object’s `id` field."""
-  id: UUIDFilter
-
-  """Filter by the object’s `expires` field."""
-  expires: DatetimeFilter
-
-  """Filter by the object’s `sessionToken` field."""
-  sessionToken: StringFilter
-
-  """Filter by the object’s `userId` field."""
-  userId: UUIDFilter
-
-  """Filter by the object’s `createdAt` field."""
-  createdAt: DatetimeFilter
-
-  """Filter by the object’s `updatedAt` field."""
-  updatedAt: DatetimeFilter
-
-  """Checks for all expressions in this list."""
-  and: [SessionFilter!]
-
-  """Checks for any expressions in this list."""
-  or: [SessionFilter!]
-
-  """Negates the expression."""
-  not: SessionFilter
-}
-
-"""A `Account` edge in the connection."""
-type AccountsEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `Account` at the end of the edge."""
-  node: Account!
-}
-
-"""A connection to a list of `Schemaversion` values."""
-type SchemaversionsConnection {
-  """A list of `Schemaversion` objects."""
-  nodes: [Schemaversion!]!
-
-  """
-  A list of edges which contains the `Schemaversion` and cursor to aid in pagination.
-  """
-  edges: [SchemaversionsEdge!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `Schemaversion` you could get from the connection."""
-  totalCount: Int!
-}
-
-type Schemaversion implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  version: BigInt!
-  name: String
-  md5: String
-  runAt: Datetime
-}
-
-"""
-A signed eight-byte integer. The upper big integer values are greater than the
-max value for a JavaScript number. Therefore all big integers will be output as
-strings and not numbers.
-"""
-scalar BigInt
-
-"""A `Schemaversion` edge in the connection."""
-type SchemaversionsEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `Schemaversion` at the end of the edge."""
-  node: Schemaversion!
-}
-
-"""Methods to use when ordering `Schemaversion`."""
-enum SchemaversionsOrderBy {
-  NATURAL
-  VERSION_ASC
-  VERSION_DESC
-  NAME_ASC
-  NAME_DESC
-  MD5_ASC
-  MD5_DESC
-  RUN_AT_ASC
-  RUN_AT_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
-"""
-A condition to be used against `Schemaversion` object types. All fields are
-tested for equality and combined with a logical ‘and.’
-"""
-input SchemaversionCondition {
-  """Checks for equality with the object’s `version` field."""
-  version: BigInt
-
-  """Checks for equality with the object’s `name` field."""
-  name: String
-
-  """Checks for equality with the object’s `md5` field."""
-  md5: String
-
-  """Checks for equality with the object’s `runAt` field."""
-  runAt: Datetime
-}
-
-"""
-A filter to be used against `Schemaversion` object types. All fields are combined with a logical ‘and.’
-"""
-input SchemaversionFilter {
-  """Filter by the object’s `version` field."""
-  version: BigIntFilter
-
-  """Filter by the object’s `name` field."""
-  name: StringFilter
-
-  """Filter by the object’s `md5` field."""
-  md5: StringFilter
-
-  """Filter by the object’s `runAt` field."""
-  runAt: DatetimeFilter
-
-  """Checks for all expressions in this list."""
-  and: [SchemaversionFilter!]
-
-  """Checks for any expressions in this list."""
-  or: [SchemaversionFilter!]
-
-  """Negates the expression."""
-  not: SchemaversionFilter
-}
-
-"""
-A filter to be used against BigInt fields. All fields are combined with a logical ‘and.’
-"""
-input BigIntFilter {
+input UserRolesFilter {
   """
   Is null (if `true` is specified) or is not null (if `false` is specified).
   """
   isNull: Boolean
 
   """Equal to the specified value."""
-  equalTo: BigInt
+  equalTo: UserRoles
 
   """Not equal to the specified value."""
-  notEqualTo: BigInt
+  notEqualTo: UserRoles
 
   """
   Not equal to the specified value, treating null like an ordinary value.
   """
-  distinctFrom: BigInt
+  distinctFrom: UserRoles
 
   """Equal to the specified value, treating null like an ordinary value."""
-  notDistinctFrom: BigInt
+  notDistinctFrom: UserRoles
 
   """Included in the specified list."""
-  in: [BigInt!]
+  in: [UserRoles!]
 
   """Not included in the specified list."""
-  notIn: [BigInt!]
+  notIn: [UserRoles!]
 
   """Less than the specified value."""
-  lessThan: BigInt
+  lessThan: UserRoles
 
   """Less than or equal to the specified value."""
-  lessThanOrEqualTo: BigInt
+  lessThanOrEqualTo: UserRoles
 
   """Greater than the specified value."""
-  greaterThan: BigInt
+  greaterThan: UserRoles
 
   """Greater than or equal to the specified value."""
-  greaterThanOrEqualTo: BigInt
-}
-
-"""A connection to a list of `User` values."""
-type UsersConnection {
-  """A list of `User` objects."""
-  nodes: [User!]!
-
-  """
-  A list of edges which contains the `User` and cursor to aid in pagination.
-  """
-  edges: [UsersEdge!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `User` you could get from the connection."""
-  totalCount: Int!
-}
-
-"""A `User` edge in the connection."""
-type UsersEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `User` at the end of the edge."""
-  node: User!
-}
-
-"""Methods to use when ordering `User`."""
-enum UsersOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  NAME_ASC
-  NAME_DESC
-  EMAIL_ASC
-  EMAIL_DESC
-  EMAIL_VERIFIED_ASC
-  EMAIL_VERIFIED_DESC
-  IMAGE_ASC
-  IMAGE_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
-"""
-A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’
-"""
-input UserCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: UUID
-
-  """Checks for equality with the object’s `name` field."""
-  name: String
-
-  """Checks for equality with the object’s `email` field."""
-  email: String
-
-  """Checks for equality with the object’s `emailVerified` field."""
-  emailVerified: Datetime
-
-  """Checks for equality with the object’s `image` field."""
-  image: String
-
-  """Checks for equality with the object’s `createdAt` field."""
-  createdAt: Datetime
-
-  """Checks for equality with the object’s `updatedAt` field."""
-  updatedAt: Datetime
-}
-
-"""
-A filter to be used against `User` object types. All fields are combined with a logical ‘and.’
-"""
-input UserFilter {
-  """Filter by the object’s `id` field."""
-  id: UUIDFilter
-
-  """Filter by the object’s `name` field."""
-  name: StringFilter
-
-  """Filter by the object’s `email` field."""
-  email: StringFilter
-
-  """Filter by the object’s `emailVerified` field."""
-  emailVerified: DatetimeFilter
-
-  """Filter by the object’s `image` field."""
-  image: StringFilter
-
-  """Filter by the object’s `createdAt` field."""
-  createdAt: DatetimeFilter
-
-  """Filter by the object’s `updatedAt` field."""
-  updatedAt: DatetimeFilter
-
-  """Checks for all expressions in this list."""
-  and: [UserFilter!]
-
-  """Checks for any expressions in this list."""
-  or: [UserFilter!]
-
-  """Negates the expression."""
-  not: UserFilter
-}
-
-"""A connection to a list of `VerificationToken` values."""
-type VerificationTokensConnection {
-  """A list of `VerificationToken` objects."""
-  nodes: [VerificationToken!]!
-
-  """
-  A list of edges which contains the `VerificationToken` and cursor to aid in pagination.
-  """
-  edges: [VerificationTokensEdge!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """
-  The count of *all* `VerificationToken` you could get from the connection.
-  """
-  totalCount: Int!
-}
-
-type VerificationToken implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  id: Int!
-  token: String
-  identifier: String
-  expires: Datetime!
-  createdAt: Datetime!
-  updatedAt: Datetime!
-}
-
-"""A `VerificationToken` edge in the connection."""
-type VerificationTokensEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `VerificationToken` at the end of the edge."""
-  node: VerificationToken!
-}
-
-"""Methods to use when ordering `VerificationToken`."""
-enum VerificationTokensOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  TOKEN_ASC
-  TOKEN_DESC
-  IDENTIFIER_ASC
-  IDENTIFIER_DESC
-  EXPIRES_ASC
-  EXPIRES_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
-"""
-A condition to be used against `VerificationToken` object types. All fields are
-tested for equality and combined with a logical ‘and.’
-"""
-input VerificationTokenCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: Int
-
-  """Checks for equality with the object’s `token` field."""
-  token: String
-
-  """Checks for equality with the object’s `identifier` field."""
-  identifier: String
-
-  """Checks for equality with the object’s `expires` field."""
-  expires: Datetime
-
-  """Checks for equality with the object’s `createdAt` field."""
-  createdAt: Datetime
-
-  """Checks for equality with the object’s `updatedAt` field."""
-  updatedAt: Datetime
-}
-
-"""
-A filter to be used against `VerificationToken` object types. All fields are combined with a logical ‘and.’
-"""
-input VerificationTokenFilter {
-  """Filter by the object’s `id` field."""
-  id: IntFilter
-
-  """Filter by the object’s `token` field."""
-  token: StringFilter
-
-  """Filter by the object’s `identifier` field."""
-  identifier: StringFilter
-
-  """Filter by the object’s `expires` field."""
-  expires: DatetimeFilter
-
-  """Filter by the object’s `createdAt` field."""
-  createdAt: DatetimeFilter
-
-  """Filter by the object’s `updatedAt` field."""
-  updatedAt: DatetimeFilter
-
-  """Checks for all expressions in this list."""
-  and: [VerificationTokenFilter!]
-
-  """Checks for any expressions in this list."""
-  or: [VerificationTokenFilter!]
-
-  """Negates the expression."""
-  not: VerificationTokenFilter
+  greaterThanOrEqualTo: UserRoles
 }
 
 """
 The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
-  """Creates a single `Account`."""
-  createAccount(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: CreateAccountInput!
-  ): CreateAccountPayload
-
-  """Creates a single `Schemaversion`."""
-  createSchemaversion(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: CreateSchemaversionInput!
-  ): CreateSchemaversionPayload
-
-  """Creates a single `Session`."""
-  createSession(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: CreateSessionInput!
-  ): CreateSessionPayload
-
-  """Creates a single `User`."""
-  createUser(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: CreateUserInput!
-  ): CreateUserPayload
-
-  """Creates a single `VerificationToken`."""
-  createVerificationToken(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: CreateVerificationTokenInput!
-  ): CreateVerificationTokenPayload
-
-  """Updates a single `Account` using its globally unique id and a patch."""
-  updateAccountByNodeId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateAccountByNodeIdInput!
-  ): UpdateAccountPayload
-
-  """Updates a single `Account` using a unique key and a patch."""
-  updateAccount(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateAccountInput!
-  ): UpdateAccountPayload
-
-  """
-  Updates a single `Schemaversion` using its globally unique id and a patch.
-  """
-  updateSchemaversionByNodeId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateSchemaversionByNodeIdInput!
-  ): UpdateSchemaversionPayload
-
-  """Updates a single `Schemaversion` using a unique key and a patch."""
-  updateSchemaversion(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateSchemaversionInput!
-  ): UpdateSchemaversionPayload
-
-  """Updates a single `Session` using its globally unique id and a patch."""
-  updateSessionByNodeId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateSessionByNodeIdInput!
-  ): UpdateSessionPayload
-
-  """Updates a single `Session` using a unique key and a patch."""
-  updateSession(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateSessionInput!
-  ): UpdateSessionPayload
-
-  """Updates a single `Session` using a unique key and a patch."""
-  updateSessionBySessionToken(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateSessionBySessionTokenInput!
-  ): UpdateSessionPayload
-
   """Updates a single `User` using its globally unique id and a patch."""
   updateUserByNodeId(
     """
@@ -1405,608 +519,6 @@ type Mutation {
     """
     input: UpdateUserByEmailInput!
   ): UpdateUserPayload
-
-  """
-  Updates a single `VerificationToken` using its globally unique id and a patch.
-  """
-  updateVerificationTokenByNodeId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateVerificationTokenByNodeIdInput!
-  ): UpdateVerificationTokenPayload
-
-  """Updates a single `VerificationToken` using a unique key and a patch."""
-  updateVerificationToken(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateVerificationTokenInput!
-  ): UpdateVerificationTokenPayload
-
-  """Updates a single `VerificationToken` using a unique key and a patch."""
-  updateVerificationTokenByToken(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateVerificationTokenByTokenInput!
-  ): UpdateVerificationTokenPayload
-
-  """Deletes a single `Account` using its globally unique id."""
-  deleteAccountByNodeId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteAccountByNodeIdInput!
-  ): DeleteAccountPayload
-
-  """Deletes a single `Account` using a unique key."""
-  deleteAccount(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteAccountInput!
-  ): DeleteAccountPayload
-
-  """Deletes a single `Schemaversion` using its globally unique id."""
-  deleteSchemaversionByNodeId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteSchemaversionByNodeIdInput!
-  ): DeleteSchemaversionPayload
-
-  """Deletes a single `Schemaversion` using a unique key."""
-  deleteSchemaversion(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteSchemaversionInput!
-  ): DeleteSchemaversionPayload
-
-  """Deletes a single `Session` using its globally unique id."""
-  deleteSessionByNodeId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteSessionByNodeIdInput!
-  ): DeleteSessionPayload
-
-  """Deletes a single `Session` using a unique key."""
-  deleteSession(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteSessionInput!
-  ): DeleteSessionPayload
-
-  """Deletes a single `Session` using a unique key."""
-  deleteSessionBySessionToken(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteSessionBySessionTokenInput!
-  ): DeleteSessionPayload
-
-  """Deletes a single `User` using its globally unique id."""
-  deleteUserByNodeId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteUserByNodeIdInput!
-  ): DeleteUserPayload
-
-  """Deletes a single `User` using a unique key."""
-  deleteUser(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteUserInput!
-  ): DeleteUserPayload
-
-  """Deletes a single `User` using a unique key."""
-  deleteUserByEmail(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteUserByEmailInput!
-  ): DeleteUserPayload
-
-  """Deletes a single `VerificationToken` using its globally unique id."""
-  deleteVerificationTokenByNodeId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteVerificationTokenByNodeIdInput!
-  ): DeleteVerificationTokenPayload
-
-  """Deletes a single `VerificationToken` using a unique key."""
-  deleteVerificationToken(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteVerificationTokenInput!
-  ): DeleteVerificationTokenPayload
-
-  """Deletes a single `VerificationToken` using a unique key."""
-  deleteVerificationTokenByToken(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteVerificationTokenByTokenInput!
-  ): DeleteVerificationTokenPayload
-}
-
-"""The output of our create `Account` mutation."""
-type CreateAccountPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Account` that was created by this mutation."""
-  account: Account
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `User` that is related to this `Account`."""
-  user: User
-
-  """An edge for our `Account`. May be used by Relay 1."""
-  accountEdge(
-    """The method to use when ordering `Account`."""
-    orderBy: [AccountsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AccountsEdge
-}
-
-"""All input for the create `Account` mutation."""
-input CreateAccountInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `Account` to be created by this mutation."""
-  account: AccountInput!
-}
-
-"""An input for mutations affecting `Account`"""
-input AccountInput {
-  id: UUID!
-  type: String
-  provider: String
-  providerAccountId: String
-  refreshToken: String
-  accessToken: String
-  expiresAt: Int
-  tokenType: String
-  scope: String
-  idToken: String
-  sessionState: String
-  userId: UUID
-  createdAt: Datetime!
-  updatedAt: Datetime!
-}
-
-"""The output of our create `Schemaversion` mutation."""
-type CreateSchemaversionPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Schemaversion` that was created by this mutation."""
-  schemaversion: Schemaversion
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `Schemaversion`. May be used by Relay 1."""
-  schemaversionEdge(
-    """The method to use when ordering `Schemaversion`."""
-    orderBy: [SchemaversionsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SchemaversionsEdge
-}
-
-"""All input for the create `Schemaversion` mutation."""
-input CreateSchemaversionInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `Schemaversion` to be created by this mutation."""
-  schemaversion: SchemaversionInput!
-}
-
-"""An input for mutations affecting `Schemaversion`"""
-input SchemaversionInput {
-  version: BigInt!
-  name: String
-  md5: String
-  runAt: Datetime
-}
-
-"""The output of our create `Session` mutation."""
-type CreateSessionPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Session` that was created by this mutation."""
-  session: Session
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `User` that is related to this `Session`."""
-  user: User
-
-  """An edge for our `Session`. May be used by Relay 1."""
-  sessionEdge(
-    """The method to use when ordering `Session`."""
-    orderBy: [SessionsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SessionsEdge
-}
-
-"""All input for the create `Session` mutation."""
-input CreateSessionInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `Session` to be created by this mutation."""
-  session: SessionInput!
-}
-
-"""An input for mutations affecting `Session`"""
-input SessionInput {
-  id: UUID!
-  expires: Datetime!
-  sessionToken: String
-  userId: UUID
-  createdAt: Datetime!
-  updatedAt: Datetime!
-}
-
-"""The output of our create `User` mutation."""
-type CreateUserPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `User` that was created by this mutation."""
-  user: User
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `User`. May be used by Relay 1."""
-  userEdge(
-    """The method to use when ordering `User`."""
-    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
-  ): UsersEdge
-}
-
-"""All input for the create `User` mutation."""
-input CreateUserInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `User` to be created by this mutation."""
-  user: UserInput!
-}
-
-"""An input for mutations affecting `User`"""
-input UserInput {
-  id: UUID!
-  name: String!
-  email: String!
-  emailVerified: Datetime
-  image: String
-  createdAt: Datetime!
-  updatedAt: Datetime!
-}
-
-"""The output of our create `VerificationToken` mutation."""
-type CreateVerificationTokenPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `VerificationToken` that was created by this mutation."""
-  verificationToken: VerificationToken
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `VerificationToken`. May be used by Relay 1."""
-  verificationTokenEdge(
-    """The method to use when ordering `VerificationToken`."""
-    orderBy: [VerificationTokensOrderBy!] = [PRIMARY_KEY_ASC]
-  ): VerificationTokensEdge
-}
-
-"""All input for the create `VerificationToken` mutation."""
-input CreateVerificationTokenInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `VerificationToken` to be created by this mutation."""
-  verificationToken: VerificationTokenInput!
-}
-
-"""An input for mutations affecting `VerificationToken`"""
-input VerificationTokenInput {
-  id: Int
-  token: String
-  identifier: String
-  expires: Datetime!
-  createdAt: Datetime!
-  updatedAt: Datetime!
-}
-
-"""The output of our update `Account` mutation."""
-type UpdateAccountPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Account` that was updated by this mutation."""
-  account: Account
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `User` that is related to this `Account`."""
-  user: User
-
-  """An edge for our `Account`. May be used by Relay 1."""
-  accountEdge(
-    """The method to use when ordering `Account`."""
-    orderBy: [AccountsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AccountsEdge
-}
-
-"""All input for the `updateAccountByNodeId` mutation."""
-input UpdateAccountByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Account` to be updated.
-  """
-  nodeId: ID!
-
-  """
-  An object where the defined keys will be set on the `Account` being updated.
-  """
-  patch: AccountPatch!
-}
-
-"""
-Represents an update to a `Account`. Fields that are set will be updated.
-"""
-input AccountPatch {
-  id: UUID
-  type: String
-  provider: String
-  providerAccountId: String
-  refreshToken: String
-  accessToken: String
-  expiresAt: Int
-  tokenType: String
-  scope: String
-  idToken: String
-  sessionState: String
-  userId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-}
-
-"""All input for the `updateAccount` mutation."""
-input UpdateAccountInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `Account` being updated.
-  """
-  patch: AccountPatch!
-  id: UUID!
-}
-
-"""The output of our update `Schemaversion` mutation."""
-type UpdateSchemaversionPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Schemaversion` that was updated by this mutation."""
-  schemaversion: Schemaversion
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `Schemaversion`. May be used by Relay 1."""
-  schemaversionEdge(
-    """The method to use when ordering `Schemaversion`."""
-    orderBy: [SchemaversionsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SchemaversionsEdge
-}
-
-"""All input for the `updateSchemaversionByNodeId` mutation."""
-input UpdateSchemaversionByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Schemaversion` to be updated.
-  """
-  nodeId: ID!
-
-  """
-  An object where the defined keys will be set on the `Schemaversion` being updated.
-  """
-  patch: SchemaversionPatch!
-}
-
-"""
-Represents an update to a `Schemaversion`. Fields that are set will be updated.
-"""
-input SchemaversionPatch {
-  version: BigInt
-  name: String
-  md5: String
-  runAt: Datetime
-}
-
-"""All input for the `updateSchemaversion` mutation."""
-input UpdateSchemaversionInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `Schemaversion` being updated.
-  """
-  patch: SchemaversionPatch!
-  version: BigInt!
-}
-
-"""The output of our update `Session` mutation."""
-type UpdateSessionPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Session` that was updated by this mutation."""
-  session: Session
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `User` that is related to this `Session`."""
-  user: User
-
-  """An edge for our `Session`. May be used by Relay 1."""
-  sessionEdge(
-    """The method to use when ordering `Session`."""
-    orderBy: [SessionsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SessionsEdge
-}
-
-"""All input for the `updateSessionByNodeId` mutation."""
-input UpdateSessionByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Session` to be updated.
-  """
-  nodeId: ID!
-
-  """
-  An object where the defined keys will be set on the `Session` being updated.
-  """
-  patch: SessionPatch!
-}
-
-"""
-Represents an update to a `Session`. Fields that are set will be updated.
-"""
-input SessionPatch {
-  id: UUID
-  expires: Datetime
-  sessionToken: String
-  userId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-}
-
-"""All input for the `updateSession` mutation."""
-input UpdateSessionInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `Session` being updated.
-  """
-  patch: SessionPatch!
-  id: UUID!
-}
-
-"""All input for the `updateSessionBySessionToken` mutation."""
-input UpdateSessionBySessionTokenInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `Session` being updated.
-  """
-  patch: SessionPatch!
-  sessionToken: String!
 }
 
 """The output of our update `User` mutation."""
@@ -2053,13 +565,7 @@ input UpdateUserByNodeIdInput {
 
 """Represents an update to a `User`. Fields that are set will be updated."""
 input UserPatch {
-  id: UUID
   name: String
-  email: String
-  emailVerified: Datetime
-  image: String
-  createdAt: Datetime
-  updatedAt: Datetime
 }
 
 """All input for the `updateUser` mutation."""
@@ -2090,364 +596,4 @@ input UpdateUserByEmailInput {
   """
   patch: UserPatch!
   email: String!
-}
-
-"""The output of our update `VerificationToken` mutation."""
-type UpdateVerificationTokenPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `VerificationToken` that was updated by this mutation."""
-  verificationToken: VerificationToken
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `VerificationToken`. May be used by Relay 1."""
-  verificationTokenEdge(
-    """The method to use when ordering `VerificationToken`."""
-    orderBy: [VerificationTokensOrderBy!] = [PRIMARY_KEY_ASC]
-  ): VerificationTokensEdge
-}
-
-"""All input for the `updateVerificationTokenByNodeId` mutation."""
-input UpdateVerificationTokenByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `VerificationToken` to be updated.
-  """
-  nodeId: ID!
-
-  """
-  An object where the defined keys will be set on the `VerificationToken` being updated.
-  """
-  patch: VerificationTokenPatch!
-}
-
-"""
-Represents an update to a `VerificationToken`. Fields that are set will be updated.
-"""
-input VerificationTokenPatch {
-  id: Int
-  token: String
-  identifier: String
-  expires: Datetime
-  createdAt: Datetime
-  updatedAt: Datetime
-}
-
-"""All input for the `updateVerificationToken` mutation."""
-input UpdateVerificationTokenInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `VerificationToken` being updated.
-  """
-  patch: VerificationTokenPatch!
-  id: Int!
-}
-
-"""All input for the `updateVerificationTokenByToken` mutation."""
-input UpdateVerificationTokenByTokenInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `VerificationToken` being updated.
-  """
-  patch: VerificationTokenPatch!
-  token: String!
-}
-
-"""The output of our delete `Account` mutation."""
-type DeleteAccountPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Account` that was deleted by this mutation."""
-  account: Account
-  deletedAccountNodeId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `User` that is related to this `Account`."""
-  user: User
-
-  """An edge for our `Account`. May be used by Relay 1."""
-  accountEdge(
-    """The method to use when ordering `Account`."""
-    orderBy: [AccountsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AccountsEdge
-}
-
-"""All input for the `deleteAccountByNodeId` mutation."""
-input DeleteAccountByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Account` to be deleted.
-  """
-  nodeId: ID!
-}
-
-"""All input for the `deleteAccount` mutation."""
-input DeleteAccountInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"""The output of our delete `Schemaversion` mutation."""
-type DeleteSchemaversionPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Schemaversion` that was deleted by this mutation."""
-  schemaversion: Schemaversion
-  deletedSchemaversionNodeId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `Schemaversion`. May be used by Relay 1."""
-  schemaversionEdge(
-    """The method to use when ordering `Schemaversion`."""
-    orderBy: [SchemaversionsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SchemaversionsEdge
-}
-
-"""All input for the `deleteSchemaversionByNodeId` mutation."""
-input DeleteSchemaversionByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Schemaversion` to be deleted.
-  """
-  nodeId: ID!
-}
-
-"""All input for the `deleteSchemaversion` mutation."""
-input DeleteSchemaversionInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  version: BigInt!
-}
-
-"""The output of our delete `Session` mutation."""
-type DeleteSessionPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Session` that was deleted by this mutation."""
-  session: Session
-  deletedSessionNodeId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `User` that is related to this `Session`."""
-  user: User
-
-  """An edge for our `Session`. May be used by Relay 1."""
-  sessionEdge(
-    """The method to use when ordering `Session`."""
-    orderBy: [SessionsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SessionsEdge
-}
-
-"""All input for the `deleteSessionByNodeId` mutation."""
-input DeleteSessionByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Session` to be deleted.
-  """
-  nodeId: ID!
-}
-
-"""All input for the `deleteSession` mutation."""
-input DeleteSessionInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"""All input for the `deleteSessionBySessionToken` mutation."""
-input DeleteSessionBySessionTokenInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  sessionToken: String!
-}
-
-"""The output of our delete `User` mutation."""
-type DeleteUserPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `User` that was deleted by this mutation."""
-  user: User
-  deletedUserNodeId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `User`. May be used by Relay 1."""
-  userEdge(
-    """The method to use when ordering `User`."""
-    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
-  ): UsersEdge
-}
-
-"""All input for the `deleteUserByNodeId` mutation."""
-input DeleteUserByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `User` to be deleted.
-  """
-  nodeId: ID!
-}
-
-"""All input for the `deleteUser` mutation."""
-input DeleteUserInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"""All input for the `deleteUserByEmail` mutation."""
-input DeleteUserByEmailInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  email: String!
-}
-
-"""The output of our delete `VerificationToken` mutation."""
-type DeleteVerificationTokenPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `VerificationToken` that was deleted by this mutation."""
-  verificationToken: VerificationToken
-  deletedVerificationTokenNodeId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `VerificationToken`. May be used by Relay 1."""
-  verificationTokenEdge(
-    """The method to use when ordering `VerificationToken`."""
-    orderBy: [VerificationTokensOrderBy!] = [PRIMARY_KEY_ASC]
-  ): VerificationTokensEdge
-}
-
-"""All input for the `deleteVerificationTokenByNodeId` mutation."""
-input DeleteVerificationTokenByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `VerificationToken` to be deleted.
-  """
-  nodeId: ID!
-}
-
-"""All input for the `deleteVerificationToken` mutation."""
-input DeleteVerificationTokenInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: Int!
-}
-
-"""All input for the `deleteVerificationTokenByToken` mutation."""
-input DeleteVerificationTokenByTokenInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  token: String!
 }

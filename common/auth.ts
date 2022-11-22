@@ -6,6 +6,7 @@ export type MyUser = {
   name: string;
   email: string;
   image: string;
+  role: "USER" | "ADMIN";
 };
 
 export type MySession = {
