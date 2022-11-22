@@ -7,12 +7,13 @@
     "db-clean": "docker volume rm my_stuff_app_db_data",
     "db-run": "docker run --name my_stuff_app_db -it --rm --env POSTGRES_PASSWORD=password --volume my_stuff_app_db_data:/var/lib/postgresql/data --publish 5432:5432 postgres:14.3-alpine3.16",
     "db-migrate": "dotenv node db/migrate.js",
+    "gql-codegen": "yarn graphql-codegen --watch --config graphql-codegen.config.cjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "docker-build": "docker build --tag my_stuff_app .",
     "docker-start": "docker run --name my_stuff_app_1 -it --rm --publish 3000:3000 --env-file ./.env --env DATABASE_URL=postgres://postgres:password@host.docker.internal:5432/postgres my_stuff_app",
-    "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
+    "lint": "eslint . --ext .js,.ts,.jsx,.tsx,.cjs",
     "lint-fix": "yarn lint --fix"
   },
   "dependencies": {
@@ -36,6 +37,12 @@
     "sequelize": "6.25.7"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.14.1",
+    "@graphql-codegen/near-operation-file-preset": "2.4.4",
+    "@graphql-codegen/typed-document-node": "2.3.7",
+    "@graphql-codegen/typescript": "2.8.2",
+    "@graphql-codegen/typescript-operations": "2.5.7",
+    "@graphql-typed-document-node/core": "3.1.1",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",

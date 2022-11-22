@@ -5,7 +5,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // pageExtensions: ['route.tsx'],
+  pageExtensions: ["route.tsx", "route.ts"],
 };
 
 export default nextConfig;
