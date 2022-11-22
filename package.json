@@ -6,6 +6,7 @@
   "scripts": {
     "db-clean": "docker volume rm my_stuff_app_db_data",
     "db-run": "docker run --name my_stuff_app_db -it --rm --env POSTGRES_PASSWORD=password --volume my_stuff_app_db_data:/var/lib/postgresql/data --publish 5432:5432 postgres:14.3-alpine3.16",
+    "db-migrate": "dotenv node db/migrate.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -21,6 +22,7 @@
     "pg-hstore": "2.3.4",
     "postgraphile": "4.12.11",
     "postgraphile-plugin-connection-filter": "2.3.0",
+    "postgrator": "7.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sequelize": "6.25.7"
@@ -29,6 +31,7 @@
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
+    "dotenv-cli": "6.0.0",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.4",
     "eslint-config-zenflow": "4.0.0",
