@@ -1,12 +1,12 @@
-import type { Session } from "next-auth";
 import type { ApolloClient } from "@apollo/client";
 import { Resource } from "react-admin";
 import UserIcon from "@mui/icons-material/Group";
+import type { MySession } from "../../common/auth";
 import { UserList } from "./UserList";
 import { UserEdit } from "./UserEdit";
 
 export async function getResources(
-  session: Session,
+  session: MySession,
   apolloClient: ApolloClient<unknown>
 ) {
   return (

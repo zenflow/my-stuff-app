@@ -1,9 +1,9 @@
 create table users (
     id uuid primary key,
-    name text,
-    email text unique,
+    name text not null,
+    email text unique not null,
     "emailVerified" timestamp with time zone,
-    image text,
+    image text not null default '',
     "createdAt" timestamp with time zone not null,
     "updatedAt" timestamp with time zone not null
 );

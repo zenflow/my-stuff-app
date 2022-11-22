@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
+import { useMySession } from "../common/auth";
 
 export const DefaultHeader: React.FC = () => {
-  const { data: session } = useSession();
-  const firstName = session?.user?.name?.split(" ")[0];
+  const session = useMySession();
+  const firstName = session?.user.name.split(" ")[0];
   return (
     <nav>
       <Link href="/">Home</Link> <Link href="/about">About</Link>{" "}

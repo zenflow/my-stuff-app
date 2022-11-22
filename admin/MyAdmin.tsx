@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useCallback, useMemo } from "react";
-import type { Session } from "next-auth";
 import { HashRouter } from "react-router-dom";
 import { Admin, AuthProvider } from "react-admin";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import pgDataProvider from "ra-postgraphile";
 import { useAsync } from "../modules/use-async";
+import type { MySession } from "../common/auth";
 import { MyLayout } from "./MyLayout";
 import { getResources } from "./resources";
 
@@ -15,7 +15,7 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export const MyAdmin: React.FC<{ session: Session }> = (props) => {
+export const MyAdmin: React.FC<{ session: MySession }> = (props) => {
   // use initial value of session prop; this value never updates in a lifecycle
   const session = useMemo(() => props.session, []);
   const authProvider = useMemo(() => getAuthProvider(session), []);
@@ -41,7 +41,7 @@ export const MyAdmin: React.FC<{ session: Session }> = (props) => {
   );
 };
 
-export function getAuthProvider(session: Session): AuthProvider {
+export function getAuthProvider(session: MySession): AuthProvider {
   return {
     async login(params) {},
     async checkError(error) {},
@@ -49,9 +49,9 @@ export function getAuthProvider(session: Session): AuthProvider {
     async logout() {},
     async getIdentity() {
       return {
-        id: session.user!.email!,
-        fullName: session.user!.name!,
-        avatar: session.user!.image!,
+        id: session.user.id,
+        fullName: session.user.name,
+        avatar: session.user.image,
       };
     },
     async getPermissions() {},

@@ -296,10 +296,10 @@ type User implements Node {
   """
   nodeId: ID!
   id: UUID!
-  name: String
-  email: String
+  name: String!
+  email: String!
   emailVerified: Datetime
-  image: String
+  image: String!
   createdAt: Datetime!
   updatedAt: Datetime!
 
@@ -1722,8 +1722,8 @@ input CreateUserInput {
 """An input for mutations affecting `User`"""
 input UserInput {
   id: UUID!
-  name: String
-  email: String
+  name: String!
+  email: String!
   emailVerified: Datetime
   image: String
   createdAt: Datetime!

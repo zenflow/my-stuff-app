@@ -28,4 +28,24 @@ export default NextAuth({
   session: {
     strategy: "jwt",
   },
+  callbacks: {
+    // generating jwt token
+    async jwt({ token, user }) {
+      if (user) {
+        // new session
+        // copy properties from `user` model while it's available
+        token.userId = user.id;
+      } else {
+        // token refresh for old session
+        // Here we could refresh user properties from db, but that would defeat the point of jwt.
+        // For up-to-date user properties, change session strategy from "jwt" to "database".
+      }
+      return token;
+    },
+    // defining session for client
+    async session({ session, token }) {
+      (session.user as any).id = token.userId;
+      return session;
+    },
+  },
 });
