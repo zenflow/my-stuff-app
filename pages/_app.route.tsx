@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import NextProgress from "next-progress";
 import { Fragment } from "react";
 import type { NextPage } from "next";
 import type { AppType } from "next/app";
@@ -20,6 +21,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <Layout>
       <BrandImageResourceLinks />
+      <NextProgress delay={0} options={{ showSpinner: false }} />
       {component}
     </Layout>
   );
