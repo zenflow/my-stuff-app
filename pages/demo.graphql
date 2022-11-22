@@ -1,0 +1,10 @@
+query DemoPage_Users {
+  users {
+    nodes {
+      id
+      role
+      name
+      createdAt
+    }
+  }
+}

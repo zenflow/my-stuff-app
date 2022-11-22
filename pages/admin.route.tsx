@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { signIn } from "next-auth/react";
 import { useMySession } from "../common/auth";
-import type { MyPage } from "./_app";
+import type { MyPage } from "./_app.route";
 
 const MyAdmin = dynamic(
   () => import("../admin/MyAdmin").then((m) => m.MyAdmin),

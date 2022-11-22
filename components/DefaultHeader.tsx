@@ -9,7 +9,7 @@ export const DefaultHeader: React.FC = () => {
   return (
     <nav>
       <Link href="/">Home</Link>
-      <Link href="/about">About</Link>
+      <Link href="/demo">Demo</Link>
       {showAdminLink && <a href={"/admin"}>Admin</a>}
       {" • "}
       {firstName && `Welcome ${firstName}! `}
