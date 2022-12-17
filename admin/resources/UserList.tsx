@@ -16,6 +16,7 @@ export const UserList = () => (
       <ImageField source="image" />
       <EmailField source="email" />
       <TextField source="name" />
+      <TextField source="role" />
       <DateField source="createdAt" showTime />
       <DateField source="updatedAt" showTime />
     </Datagrid>

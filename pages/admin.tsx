@@ -11,11 +11,13 @@ const MyAdmin = dynamic(
 
 const AdminPage: MyPage = () => {
   const session = useMySession();
-  const hasAccess = session !== null; // user has access [to admin] if signed in
+  const isSignedIn = !!session;
+  const isAuthorized = session?.user.role === "ADMIN";
   useEffect(() => {
-    if (!hasAccess) signIn();
-  }, [hasAccess]);
-  if (!hasAccess) return null;
+    if (!isSignedIn) signIn();
+  }, [isSignedIn]);
+  if (!isSignedIn) return null;
+  if (!isAuthorized) return <h1>403 Forbidden</h1>;
   return <MyAdmin key={session.user.id} session={session} />;
 };
 

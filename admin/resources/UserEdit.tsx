@@ -6,23 +6,39 @@ import {
   Labeled,
   SaveButton,
   SimpleForm,
+  TextField,
   TextInput,
   Toolbar,
+  useRecordContext,
 } from "react-admin";
 import { Grid, Box } from "@mui/material";
 import { getResourceTitle } from "../titles";
+import { useMySession } from "../../common/auth";
 
 const title = getResourceTitle(
   ({ record }) => record && `User / ${record.name}`
 );
 
-export const UserEdit = () => (
-  <Edit title={title}>
+export const UserEdit = () => {
+  return (
+    <Edit title={title}>
+      <UserEditForm />
+    </Edit>
+  );
+};
+
+const UserEditForm = () => {
+  const session = useMySession();
+  const record = useRecordContext();
+  const isCurrentUser = !!session && !!record && session.user.id === record.id;
+  return (
     <SimpleForm
       toolbar={
-        <Toolbar>
-          <SaveButton />
-        </Toolbar>
+        isCurrentUser && (
+          <Toolbar>
+            <SaveButton />
+          </Toolbar>
+        )
       }
     >
       <Grid container width={{ xs: "100%", xl: 800 }} spacing={2}>
@@ -42,16 +58,29 @@ export const UserEdit = () => (
               </Labeled>
             </Box>
           </Box>
-          <Box>
-            <Labeled>
-              <EmailField source="email" />
-            </Labeled>
+          <Box display={{ xs: "block", sm: "flex" }}>
+            <Box flex={1}>
+              <Labeled>
+                <EmailField source="email" />
+              </Labeled>
+            </Box>
+            <Box flex={1}>
+              <Labeled>
+                <TextField source="role" />
+              </Labeled>
+            </Box>
           </Box>
           <Box>
-            <TextInput source="name" fullWidth />
+            {isCurrentUser ? (
+              <TextInput source="name" fullWidth />
+            ) : (
+              <Labeled>
+                <TextField source="name" />
+              </Labeled>
+            )}
           </Box>
         </Grid>
       </Grid>
     </SimpleForm>
-  </Edit>
-);
+  );
+};

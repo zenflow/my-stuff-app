@@ -3,11 +3,16 @@ import type { MyPage } from "./_app";
 
 const HOME_PAGE_QUERY = gql`
   query {
+    currentUser {
+      name
+      email
+      role
+    }
     users {
       nodes {
         name
         email
-        createdAt
+        role
       }
     }
   }
