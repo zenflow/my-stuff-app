@@ -1,17 +1,20 @@
 import { DataTypes, Sequelize } from "sequelize";
 import NextAuth from "next-auth";
-import SequelizeAdapter from "@next-auth/sequelize-adapter";
+import SequelizeAdapter, { models } from "@next-auth/sequelize-adapter";
 import GoogleProvider from "next-auth/providers/google";
-import { defaultModels } from "../../../modules/next-auth-sequelize-default-models";
 
 const sequelize = new Sequelize(process.env.DATABASE_URL!, { logging: false });
-const UserModel = sequelize.define("user", {
-  ...defaultModels.User,
-  role: {
-    type: DataTypes.ENUM,
-    values: ["USER", "ADMIN"],
+const UserModel = sequelize.define(
+  "user",
+  {
+    ...models.User,
+    role: {
+      type: DataTypes.ENUM,
+      values: ["USER", "ADMIN"],
+    },
   },
-});
+  { underscored: true, timestamps: false }
+);
 UserModel.beforeCreate((user: any) => {
   const autoAdminEmails = process.env.AUTO_ADMIN_EMAILS?.split(",") ?? [];
   const isAutoAdmin = autoAdminEmails.includes(user.email);
@@ -20,12 +23,6 @@ UserModel.beforeCreate((user: any) => {
 const adapter = SequelizeAdapter(sequelize, {
   models: {
     User: UserModel as any,
-    Account: sequelize.define("account", defaultModels.Account),
-    Session: sequelize.define("session", defaultModels.Session),
-    VerificationToken: sequelize.define(
-      "verificationToken",
-      defaultModels.VerificationToken
-    ),
   },
 });
 

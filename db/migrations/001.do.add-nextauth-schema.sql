@@ -2,17 +2,15 @@ create table users (
     id uuid primary key,
     name text not null,
     email text unique not null,
-    "emailVerified" timestamp with time zone,
-    image text not null default '',
-    "createdAt" timestamp with time zone not null,
-    "updatedAt" timestamp with time zone not null
+    email_verified timestamp with time zone,
+    image text not null default ''
 );
 
 create table accounts (
     id uuid primary key,
     type text,
     provider text,
-    "providerAccountId" text,
+    provider_account_id text,
     refresh_token text,
     access_token text,
     expires_at integer,
@@ -20,25 +18,19 @@ create table accounts (
     scope text,
     id_token text,
     session_state text,
-    "userId" uuid references users(id) on update cascade on delete cascade,
-    "createdAt" timestamp with time zone not null,
-    "updatedAt" timestamp with time zone not null
+    user_id uuid references users(id) on update cascade on delete cascade
 );
 
 create table sessions (
     id uuid primary key,
     expires timestamp with time zone not null,
-    "sessionToken" text unique,
-    "userId" uuid references users(id) on update cascade on delete cascade,
-    "createdAt" timestamp with time zone not null,
-    "updatedAt" timestamp with time zone not null
+    session_token text unique,
+    user_id uuid references users(id) on update cascade on delete cascade
 );
 
-create table "verificationTokens" (
+create table verification_tokens (
     id serial primary key,
     token text unique,
     identifier text,
-    expires timestamp with time zone not null,
-    "createdAt" timestamp with time zone not null,
-    "updatedAt" timestamp with time zone not null
+    expires timestamp with time zone not null
 );
