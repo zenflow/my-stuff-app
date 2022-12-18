@@ -6,9 +6,9 @@ import {
   List,
   TextField,
 } from "react-admin";
-import { getResourceTitle } from "../titles";
+import { getTitle } from "../../common/getTitle";
 
-const title = getResourceTitle("Users");
+const title = getTitle("Users");
 
 export const UserList = () => (
   <List title={title}>

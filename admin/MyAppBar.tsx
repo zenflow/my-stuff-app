@@ -2,7 +2,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { Box, IconButton, Typography } from "@mui/material";
 import { AppBar, AppBarClasses, AppBarProps } from "react-admin";
 import { MyUserMenu } from "./MyUserMenu";
-import { mainTitle } from "./titles";
+import { MAIN_TITLE } from "./config";
 
 export function MyAppBar(props: AppBarProps) {
   return (
@@ -15,7 +15,7 @@ export function MyAppBar(props: AppBarProps) {
         sx={{ filter: "invert(100%)", marginRight: "8px" }}
       />
       <Typography variant="h6" display={{ xs: "none", md: "block" }}>
-        {mainTitle}
+        {MAIN_TITLE}
       </Typography>
       <Typography
         variant="h6"
@@ -23,15 +23,9 @@ export function MyAppBar(props: AppBarProps) {
         className={AppBarClasses.title}
         sx={{ textAlign: "center" }}
       />
-      <IconButton onClick={goHome} color="inherit">
+      <IconButton href="/" color="inherit">
         <HomeIcon />
       </IconButton>
     </AppBar>
   );
-}
-
-// const NoHideOnScrollContainer: React.FC = (props) => <div {...props} />;
-
-function goHome() {
-  window.location = "/" as string & Location;
 }

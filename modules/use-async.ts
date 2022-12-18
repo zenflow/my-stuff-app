@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 
 export type UseAsyncStatus = "pending" | "error" | "success";
-export type UseAsyncOptions = { immediate?: boolean };
 
 export function useAsync<ValueType>(
-  fn: () => Promise<ValueType>,
-  { immediate = true }: UseAsyncOptions = {}
+  callback: () => Promise<ValueType>,
+  deps: React.DependencyList
 ): {
-  execute: () => Promise<void>;
   status: UseAsyncStatus;
   error: any;
   value: ValueType | null;
@@ -15,25 +13,27 @@ export function useAsync<ValueType>(
   const [status, setStatus] = useState<UseAsyncStatus>("pending");
   const [value, setValue] = useState<ValueType | null>(null);
   const [error, setError] = useState<any>(null);
-  const execute = useCallback(async () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const cachedCallback = useCallback(callback, deps);
+  const execute = useCallback(() => {
     setStatus("pending");
     setValue(null);
     setError(null);
-    fn().then(
-      (value) => {
-        setValue(value);
-        setStatus("success");
-      },
-      (error) => {
-        setError(error);
-        setStatus("error");
-      }
-    );
-  }, [fn]);
+    Promise.resolve()
+      .then(() => cachedCallback())
+      .then(
+        (value) => {
+          setValue(value);
+          setStatus("success");
+        },
+        (error) => {
+          setError(error);
+          setStatus("error");
+        }
+      );
+  }, [cachedCallback]);
   useEffect(() => {
-    if (immediate) {
-      execute();
-    }
-  }, [execute, immediate]);
-  return { execute, status, value, error };
+    execute();
+  }, [execute]);
+  return { status, value, error };
 }

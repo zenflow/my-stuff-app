@@ -1,34 +1,35 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { HashRouter } from "react-router-dom";
 import { Admin, AuthProvider } from "react-admin";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import pgDataProvider from "ra-postgraphile";
 import { useAsync } from "../modules/use-async";
 import type { MySession } from "../common/auth";
+import { theme } from "./theme";
 import { MyLayout } from "./MyLayout";
 import { getResources } from "./resources";
 
-const apolloClient = new ApolloClient({
-  uri: "/api/data/graphql",
-  cache: new InMemoryCache(),
-});
-
 export const MyAdmin: React.FC<{ session: MySession }> = (props) => {
-  // use initial value of session prop; this value never updates in a lifecycle
-  const session = useMemo(() => props.session, []);
-  const authProvider = useMemo(() => getAuthProvider(session), []);
-  const { value: dataProvider } = useAsync(
-    useCallback(() => pgDataProvider(apolloClient), [])
+  // Use only the initial value of `session` prop, to avoid constant reflow.
+  // The Next.js page that uses this renders a new instance whenever auth status changes.
+  const session = useMemo(() => props.session, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const authProvider = useMemo(() => getAuthProvider(session), [session]);
+  const apolloClient = useMemo(() => getApolloClient(), []);
+  const { value: dataProvider, error: dataProviderError } = useAsync(
+    () => pgDataProvider(apolloClient),
+    [apolloClient]
   );
-  const { value: resources } = useAsync(
-    useCallback(() => getResources(session, apolloClient), [])
+  const { value: resources, error: resourcesError } = useAsync(
+    () => getResources(session, apolloClient),
+    [session, apolloClient]
   );
-  if (!dataProvider || !resources) return null; // TODO: better error handling
+  if (dataProviderError) throw dataProviderError;
+  if (resourcesError) throw resourcesError;
+  if (!dataProvider || !resources) return null;
   return (
     <HashRouter>
       <Admin
+        theme={theme}
         layout={MyLayout}
         title="Not Found"
         disableTelemetry
@@ -41,7 +42,14 @@ export const MyAdmin: React.FC<{ session: MySession }> = (props) => {
   );
 };
 
-export function getAuthProvider(session: MySession): AuthProvider {
+function getApolloClient() {
+  return new ApolloClient({
+    uri: "/api/data/graphql",
+    cache: new InMemoryCache(),
+  });
+}
+
+function getAuthProvider(session: MySession): AuthProvider {
   return {
     async login(params) {},
     async checkError(error) {},

@@ -4,20 +4,17 @@ import {
   EmailField,
   ImageField,
   Labeled,
-  SaveButton,
   SimpleForm,
   TextField,
   TextInput,
-  Toolbar,
   useRecordContext,
 } from "react-admin";
 import { Grid, Box } from "@mui/material";
-import { getResourceTitle } from "../titles";
-import { useMySession } from "../../common/auth";
+import { useMySession } from "../../../common/auth";
+import { getTitle } from "../../common/getTitle";
+import { getToolbar } from "../../common/getToolbar";
 
-const title = getResourceTitle(
-  ({ record }) => record && `User / ${record.name}`
-);
+const title = getTitle(({ record }) => record && `Users / ${record.name}`);
 
 export const UserEdit = () => {
   return (
@@ -30,17 +27,9 @@ export const UserEdit = () => {
 const UserEditForm = () => {
   const session = useMySession();
   const record = useRecordContext();
-  const isCurrentUser = !!session && !!record && session.user.id === record.id;
+  const isCurrentUser = !!session && !!record && record.id === session.user.id;
   return (
-    <SimpleForm
-      toolbar={
-        isCurrentUser && (
-          <Toolbar>
-            <SaveButton />
-          </Toolbar>
-        )
-      }
-    >
+    <SimpleForm toolbar={getToolbar({ hasSave: isCurrentUser })}>
       <Grid container width={{ xs: "100%", xl: 800 }} spacing={2}>
         <Grid item xs={12} md={4}>
           <ImageField source="image" />
@@ -71,13 +60,7 @@ const UserEditForm = () => {
             </Box>
           </Box>
           <Box>
-            {isCurrentUser ? (
-              <TextInput source="name" fullWidth />
-            ) : (
-              <Labeled>
-                <TextField source="name" />
-              </Labeled>
-            )}
+            <TextInput source="name" fullWidth disabled={!isCurrentUser} />
           </Box>
         </Grid>
       </Grid>
