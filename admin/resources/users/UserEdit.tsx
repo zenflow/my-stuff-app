@@ -4,6 +4,7 @@ import {
   EmailField,
   ImageField,
   Labeled,
+  required,
   SimpleForm,
   TextField,
   TextInput,
@@ -60,7 +61,12 @@ const UserEditForm = () => {
             </Box>
           </Box>
           <Box>
-            <TextInput source="name" fullWidth disabled={!isCurrentUser} />
+            <TextInput
+              source="name"
+              fullWidth
+              disabled={!isCurrentUser}
+              validate={required()}
+            />
           </Box>
         </Grid>
       </Grid>

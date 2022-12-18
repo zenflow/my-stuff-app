@@ -14,6 +14,7 @@ export async function getResources(
   const params: GetResourceParams = { session };
   return (
     <>
+      {require("./memes").getResource(params)}
       {require("./users").getResource(params)}
       {/* insert more resources here */}
     </>

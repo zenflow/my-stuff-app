@@ -5,5 +5,11 @@ import { UserList } from "./UserList";
 import { UserEdit } from "./UserEdit";
 
 export const getResource: GetResource = () => (
-  <Resource name="users" icon={UserIcon} list={UserList} edit={UserEdit} />
+  <Resource
+    name="users"
+    icon={UserIcon}
+    list={UserList}
+    edit={UserEdit}
+    recordRepresentation={(record) => record.name}
+  />
 );

@@ -21,6 +21,41 @@ export type Scalars = {
   UUID: string;
 };
 
+/** All input for the create `Meme` mutation. */
+export type CreateMemeInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** The `Meme` to be created by this mutation. */
+  meme: MemeInput;
+};
+
+/** The output of our create `Meme` mutation. */
+export type CreateMemePayload = {
+  __typename?: 'CreateMemePayload';
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Meme` that was created by this mutation. */
+  meme?: Maybe<Meme>;
+  /** An edge for our `Meme`. May be used by Relay 1. */
+  memeEdge?: Maybe<MemesEdge>;
+  /** Reads a single `User` that is related to this `Meme`. */
+  owner?: Maybe<User>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our create `Meme` mutation. */
+export type CreateMemePayloadMemeEdgeArgs = {
+  orderBy?: InputMaybe<Array<MemesOrderBy>>;
+};
+
 /** A filter to be used against Datetime fields. All fields are combined with a logical ‘and.’ */
 export type DatetimeFilter = {
   /** Not equal to the specified value, treating null like an ordinary value. */
@@ -47,15 +82,205 @@ export type DatetimeFilter = {
   notIn?: InputMaybe<Array<Scalars['Datetime']>>;
 };
 
+/** All input for the `deleteMemeByNodeId` mutation. */
+export type DeleteMemeByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** The globally unique `ID` which will identify a single `Meme` to be deleted. */
+  nodeId: Scalars['ID'];
+};
+
+/** All input for the `deleteMeme` mutation. */
+export type DeleteMemeInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  id: Scalars['UUID'];
+};
+
+/** The output of our delete `Meme` mutation. */
+export type DeleteMemePayload = {
+  __typename?: 'DeleteMemePayload';
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  deletedMemeNodeId?: Maybe<Scalars['ID']>;
+  /** The `Meme` that was deleted by this mutation. */
+  meme?: Maybe<Meme>;
+  /** An edge for our `Meme`. May be used by Relay 1. */
+  memeEdge?: Maybe<MemesEdge>;
+  /** Reads a single `User` that is related to this `Meme`. */
+  owner?: Maybe<User>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our delete `Meme` mutation. */
+export type DeleteMemePayloadMemeEdgeArgs = {
+  orderBy?: InputMaybe<Array<MemesOrderBy>>;
+};
+
+export type Meme = Node & {
+  __typename?: 'Meme';
+  caption: Scalars['String'];
+  createdAt: Scalars['Datetime'];
+  id: Scalars['UUID'];
+  image: Scalars['String'];
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID'];
+  /** Reads a single `User` that is related to this `Meme`. */
+  owner?: Maybe<User>;
+  ownerId?: Maybe<Scalars['UUID']>;
+  updatedAt: Scalars['Datetime'];
+};
+
+/** A condition to be used against `Meme` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+export type MemeCondition = {
+  /** Checks for equality with the object’s `caption` field. */
+  caption?: InputMaybe<Scalars['String']>;
+  /** Checks for equality with the object’s `createdAt` field. */
+  createdAt?: InputMaybe<Scalars['Datetime']>;
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['UUID']>;
+  /** Checks for equality with the object’s `image` field. */
+  image?: InputMaybe<Scalars['String']>;
+  /** Checks for equality with the object’s `ownerId` field. */
+  ownerId?: InputMaybe<Scalars['UUID']>;
+  /** Checks for equality with the object’s `updatedAt` field. */
+  updatedAt?: InputMaybe<Scalars['Datetime']>;
+};
+
+/** A filter to be used against `Meme` object types. All fields are combined with a logical ‘and.’ */
+export type MemeFilter = {
+  /** Checks for all expressions in this list. */
+  and?: InputMaybe<Array<MemeFilter>>;
+  /** Filter by the object’s `caption` field. */
+  caption?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: InputMaybe<DatetimeFilter>;
+  /** Filter by the object’s `id` field. */
+  id?: InputMaybe<UuidFilter>;
+  /** Filter by the object’s `image` field. */
+  image?: InputMaybe<StringFilter>;
+  /** Negates the expression. */
+  not?: InputMaybe<MemeFilter>;
+  /** Checks for any expressions in this list. */
+  or?: InputMaybe<Array<MemeFilter>>;
+  /** Filter by the object’s `ownerId` field. */
+  ownerId?: InputMaybe<UuidFilter>;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: InputMaybe<DatetimeFilter>;
+};
+
+/** An input for mutations affecting `Meme` */
+export type MemeInput = {
+  caption: Scalars['String'];
+  image: Scalars['String'];
+};
+
+/** Represents an update to a `Meme`. Fields that are set will be updated. */
+export type MemePatch = {
+  caption?: InputMaybe<Scalars['String']>;
+};
+
+/** A connection to a list of `Meme` values. */
+export type MemesConnection = {
+  __typename?: 'MemesConnection';
+  /** A list of edges which contains the `Meme` and cursor to aid in pagination. */
+  edges: Array<MemesEdge>;
+  /** A list of `Meme` objects. */
+  nodes: Array<Meme>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Meme` you could get from the connection. */
+  totalCount: Scalars['Int'];
+};
+
+/** A `Meme` edge in the connection. */
+export type MemesEdge = {
+  __typename?: 'MemesEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']>;
+  /** The `Meme` at the end of the edge. */
+  node: Meme;
+};
+
+/** Methods to use when ordering `Meme`. */
+export enum MemesOrderBy {
+  CaptionAsc = 'CAPTION_ASC',
+  CaptionDesc = 'CAPTION_DESC',
+  CreatedAtAsc = 'CREATED_AT_ASC',
+  CreatedAtDesc = 'CREATED_AT_DESC',
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  ImageAsc = 'IMAGE_ASC',
+  ImageDesc = 'IMAGE_DESC',
+  Natural = 'NATURAL',
+  OwnerIdAsc = 'OWNER_ID_ASC',
+  OwnerIdDesc = 'OWNER_ID_DESC',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  UpdatedAtAsc = 'UPDATED_AT_ASC',
+  UpdatedAtDesc = 'UPDATED_AT_DESC'
+}
+
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Creates a single `Meme`. */
+  createMeme?: Maybe<CreateMemePayload>;
+  /** Deletes a single `Meme` using a unique key. */
+  deleteMeme?: Maybe<DeleteMemePayload>;
+  /** Deletes a single `Meme` using its globally unique id. */
+  deleteMemeByNodeId?: Maybe<DeleteMemePayload>;
+  /** Updates a single `Meme` using a unique key and a patch. */
+  updateMeme?: Maybe<UpdateMemePayload>;
+  /** Updates a single `Meme` using its globally unique id and a patch. */
+  updateMemeByNodeId?: Maybe<UpdateMemePayload>;
   /** Updates a single `User` using a unique key and a patch. */
   updateUser?: Maybe<UpdateUserPayload>;
   /** Updates a single `User` using a unique key and a patch. */
   updateUserByEmail?: Maybe<UpdateUserPayload>;
   /** Updates a single `User` using its globally unique id and a patch. */
   updateUserByNodeId?: Maybe<UpdateUserPayload>;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateMemeArgs = {
+  input: CreateMemeInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteMemeArgs = {
+  input: DeleteMemeInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteMemeByNodeIdArgs = {
+  input: DeleteMemeByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateMemeArgs = {
+  input: UpdateMemeInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateMemeByNodeIdArgs = {
+  input: UpdateMemeByNodeIdInput;
 };
 
 
@@ -99,6 +324,11 @@ export type PageInfo = {
 export type Query = Node & {
   __typename?: 'Query';
   currentUser?: Maybe<User>;
+  meme?: Maybe<Meme>;
+  /** Reads a single `Meme` using its globally unique `ID`. */
+  memeByNodeId?: Maybe<Meme>;
+  /** Reads and enables pagination through a set of `Meme`. */
+  memes?: Maybe<MemesConnection>;
   /** Fetches an object given its globally unique `ID`. */
   node?: Maybe<Node>;
   /** The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`. */
@@ -114,6 +344,31 @@ export type Query = Node & {
   userByNodeId?: Maybe<User>;
   /** Reads and enables pagination through a set of `User`. */
   users?: Maybe<UsersConnection>;
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryMemeArgs = {
+  id: Scalars['UUID'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryMemeByNodeIdArgs = {
+  nodeId: Scalars['ID'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryMemesArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  condition?: InputMaybe<MemeCondition>;
+  filter?: InputMaybe<MemeFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<MemesOrderBy>>;
 };
 
 
@@ -257,6 +512,55 @@ export type UuidFilter = {
   notIn?: InputMaybe<Array<Scalars['UUID']>>;
 };
 
+/** All input for the `updateMemeByNodeId` mutation. */
+export type UpdateMemeByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** The globally unique `ID` which will identify a single `Meme` to be updated. */
+  nodeId: Scalars['ID'];
+  /** An object where the defined keys will be set on the `Meme` being updated. */
+  patch: MemePatch;
+};
+
+/** All input for the `updateMeme` mutation. */
+export type UpdateMemeInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  id: Scalars['UUID'];
+  /** An object where the defined keys will be set on the `Meme` being updated. */
+  patch: MemePatch;
+};
+
+/** The output of our update `Meme` mutation. */
+export type UpdateMemePayload = {
+  __typename?: 'UpdateMemePayload';
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Meme` that was updated by this mutation. */
+  meme?: Maybe<Meme>;
+  /** An edge for our `Meme`. May be used by Relay 1. */
+  memeEdge?: Maybe<MemesEdge>;
+  /** Reads a single `User` that is related to this `Meme`. */
+  owner?: Maybe<User>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our update `Meme` mutation. */
+export type UpdateMemePayloadMemeEdgeArgs = {
+  orderBy?: InputMaybe<Array<MemesOrderBy>>;
+};
+
 /** All input for the `updateUserByEmail` mutation. */
 export type UpdateUserByEmailInput = {
   /**
@@ -323,11 +627,25 @@ export type User = Node & {
   emailVerified?: Maybe<Scalars['Datetime']>;
   id: Scalars['UUID'];
   image: Scalars['String'];
+  /** Reads and enables pagination through a set of `Meme`. */
+  memesByOwnerId: MemesConnection;
   name: Scalars['String'];
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   nodeId: Scalars['ID'];
   role: UserRoles;
   updatedAt: Scalars['Datetime'];
+};
+
+
+export type UserMemesByOwnerIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  condition?: InputMaybe<MemeCondition>;
+  filter?: InputMaybe<MemeFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<MemesOrderBy>>;
 };
 
 /** A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’ */
