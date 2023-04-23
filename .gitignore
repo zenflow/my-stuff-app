@@ -3,6 +3,3 @@
 next-env.d.ts
 .vscode
 .env
-
-# ignore for now, make interactive rebase easier
-yarn.lock
