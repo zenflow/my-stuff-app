@@ -1,0 +1,13 @@
+query MemesPage_memes {
+  memes(orderBy: CREATED_AT_DESC) {
+    nodes {
+      id
+      createdAt
+      caption
+      image
+      owner {
+        name
+      }
+    }
+  }
+}

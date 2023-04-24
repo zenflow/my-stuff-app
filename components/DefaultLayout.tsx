@@ -51,7 +51,7 @@ const NavbarSectionMenu: React.FC = () => {
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/demo">Demo</Link>
+          <Link href="/memes">Memes</Link>
         </li>
         {session?.user.role === "ADMIN" && (
           <li>
