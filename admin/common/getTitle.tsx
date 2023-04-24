@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { RaRecord, useRecordContext } from "react-admin";
-import { MAIN_TITLE } from "../config";
+import { ADMIN_TITLE } from "../../common/constants";
 
 export type GetTitleCallback = (params: {
   record: RaRecord | null;
@@ -12,8 +12,8 @@ export function getTitle(title: string | GetTitleCallback): JSX.Element {
     const appBarTitle =
       typeof title === "function" ? title({ record }) ?? "" : title;
     const documentTitle = appBarTitle
-      ? `${appBarTitle} - ${MAIN_TITLE}`
-      : MAIN_TITLE;
+      ? `${appBarTitle} - ${ADMIN_TITLE}`
+      : ADMIN_TITLE;
     useEffect(() => {
       window.document.title = documentTitle;
     }, [documentTitle]);

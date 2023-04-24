@@ -21,7 +21,11 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <Layout>
       <BrandImageResourceLinks />
-      <NextProgress delay={0} options={{ showSpinner: false }} />
+      <NextProgress
+        delay={0}
+        color="#FF79C6"
+        options={{ showSpinner: false }}
+      />
       {component}
     </Layout>
   );

@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root, [data-theme] {
+  background-color: hsla(var(--b1) / var(--tw-bg-opacity, .7));
+}

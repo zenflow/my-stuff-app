@@ -2,7 +2,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { Box, IconButton, Typography } from "@mui/material";
 import { AppBar, AppBarClasses, AppBarProps } from "react-admin";
 import { MyUserMenu } from "./MyUserMenu";
-import { MAIN_TITLE } from "./config";
+import { ADMIN_TITLE } from "../common/constants";
 
 export function MyAppBar(props: AppBarProps) {
   return (
@@ -15,7 +15,7 @@ export function MyAppBar(props: AppBarProps) {
         sx={{ filter: "invert(100%)", marginRight: "8px" }}
       />
       <Typography variant="h6" display={{ xs: "none", md: "block" }}>
-        {MAIN_TITLE}
+        {ADMIN_TITLE}
       </Typography>
       <Typography
         variant="h6"
